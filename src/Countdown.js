@@ -24,7 +24,8 @@ export default class Countdown extends Component {
   tick() {
     let startDate = new Date()
     let endDate = new Date(this.props.options.endDate)
-    let remaining = DateBetween(startDate, endDate)
+    let format = options.format || '%days %daysDescription %hours %hoursDescrption %minutes %minutesDescription %seconds %secondsDescription'
+    let remaining = DateBetween(startDate, endDate, format)
     this.setState({remaining: remaining })
   }
 
