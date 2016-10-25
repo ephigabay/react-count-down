@@ -1,4 +1,4 @@
-let DateBetween = function(startDate, endDate) {
+let DateBetween = function(startDate, endDate, format) {
   let second = 1000;
   let minute = second * 60;
   let hour = minute * 60;
@@ -11,6 +11,7 @@ let DateBetween = function(startDate, endDate) {
 
   let days = Math.floor(distance / day);
   let hours = Math.floor((distance % day) / hour);
+  let hoursIncDays = Math.floor(distance / hour);
   let minutes = Math.floor((distance % hour) / minute);
   let seconds = Math.floor((distance % minute) / second);
 
@@ -43,12 +44,18 @@ let DateBetween = function(startDate, endDate) {
     sec_description = ' seconds';
   }
 
-  let between = days + day_description;
-  between += hours + hour_description;
-  between += minutes + min_description;
-  between += seconds + sec_description;
+  if(format.indexOf('%days') === -1) {
+    hours = hoursIncDays;
+  }
 
-  return between;
+  return format.replace('%days', days)
+      .replace('%daysDescription', day_description)
+      .replace('%hours', hours)
+      .replace('%hoursDescrption', hour_description)
+      .replace('%minutes', minutes)
+      .replace('%minutesDescription', min_description)
+      .replace('%seconds', seconds)
+      .replace('%secondsDescription', sec_description);
 }
 
 module.exports = DateBetween;
